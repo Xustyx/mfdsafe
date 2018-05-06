@@ -4,7 +4,8 @@ import codecs
 import sys
 
 
-C3 = [False,False,True]
+C3 = [False,True,True]
+C3T = [False,False,True]
 
 SECTOR_SIZE = 64
 ACCESS_BITS_OFFSET = 54
@@ -12,14 +13,14 @@ ACCESS_BITS_SIZE = 3
 
 
 if len(sys.argv) == 1:
-    sys.exit(
+	sys.exit(
 '''
 Usage: mfdsafe.py ./dump.mfd
 Mifare safe acces bits dumps.
 '''
 )
-	
-	
+
+
 def set_bit(v, index, x):
 	if x:
 		return apply_bit(v,index)
@@ -44,18 +45,18 @@ def access_bits_to_str(access_bits):
 
 
 def new_access_bits(access_bits):
-		new_access_bits = []
-		
-		new_access_bits.append(set_bit(map(ord, access_bits)[0], 7, not C3[1]))
-		new_access_bits[0] = set_bit(new_access_bits[0], 3, not C3[0])
-		
-		new_access_bits.append(set_bit(map(ord, access_bits)[1], 7, C3[0]))
-		new_access_bits[1] = set_bit(new_access_bits[1], 3, not C3[2])
-		
-		new_access_bits.append(set_bit(map(ord, access_bits)[2], 7, C3[2]))
-		new_access_bits[2] = set_bit(new_access_bits[2], 3, C3[1])
-		
-		return new_access_bits
+	new_access_bits = []
+
+	new_access_bits.append(set_bit(map(ord, access_bits)[0], 7, not C3[1]))
+	new_access_bits[0] = set_bit(new_access_bits[0], 3, not C3[0])
+
+	new_access_bits.append(set_bit(map(ord, access_bits)[1], 7, C3[0]))
+	new_access_bits[1] = set_bit(new_access_bits[1], 3, not C3[2])
+
+	new_access_bits.append(set_bit(map(ord, access_bits)[2], 7, C3[2]))
+	new_access_bits[2] = set_bit(new_access_bits[2], 3, C3[1])
+
+	return new_access_bits
 
 
 def set_access_bits(data):
@@ -95,6 +96,7 @@ def main(args):
 	n_f = open('safe_' + filename, "wb")
 	n_f.write(bytez)
 	n_f.close()
-		
+
+
 if __name__ == "__main__":
 	main(sys.argv[1:])
