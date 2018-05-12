@@ -163,7 +163,7 @@ def main(args):
 
 	logging.basicConfig(format="%(levelname)s: %(message)s", level=loglevel)
 
-	f = args.input
+	f = args.INPUT
 	data = f.read()
 	bytez = set_access_bytes(data, args.type)
 	f.close()
@@ -182,22 +182,22 @@ def get_args():
 		"--output", 
 		type=str,
 		required=True,
-		help="Output dump filename.")
+		help="output dump filename.")
 	parser.add_argument(
 		"-t",
 		"--type", 
 		choices=["transport", "default"],
 		default="none",
-		help="Force all access bits to selected type.")
+		help="force all access bits to selected type.")
 	parser.add_argument(
 		"-v",
 		"--verbose",
 		help="increase output verbosity",
 		action="store_true")
 	parser.add_argument(
-		"input",
+		"INPUT",
 		type=argparse.FileType('rb'),
-		help="Dump input file."
+		help="fump input file."
         "Must be a valid Mifare Classic 1k dump.")
 
 	args = parser.parse_args()
