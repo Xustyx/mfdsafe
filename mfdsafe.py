@@ -197,7 +197,7 @@ def get_args():
 	parser.add_argument(
 		"INPUT",
 		type=argparse.FileType('rb'),
-		help="fump input file."
+		help="dump input file."
         "Must be a valid Mifare Classic 1k dump.")
 
 	args = parser.parse_args()
